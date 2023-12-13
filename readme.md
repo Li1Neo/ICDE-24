@@ -9,3 +9,24 @@ You can download dataset CERT r4.2 and r5.2 from  https://kilthub.cmu.edu/articl
 ## Dataset Preprocess
 
 The code for data preprocessing is located in `dataprocess.py`.
+The expected project structure is:
+
+```
+LAN
+ |-- run.py
+ |-- inference.py
+ |-- model.py
+ |-- dataprocess.py
+ |-- data
+ |    |-- output
+ |    |-- r4.2
+ |    |    |-- ...  
+ |    |-- r5.2
+ |    |    |-- ...      
+ |    |-- answers
+ |    |    |-- ...  
+```
+
+## How to run
+
+You can run `run.py` to train LAN.
