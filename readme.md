@@ -13,6 +13,7 @@ The expected project structure is:
 
 ```
 LAN
+ |-- run.sh
  |-- run.py
  |-- inference.py
  |-- model.py
