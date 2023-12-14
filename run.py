@@ -23,7 +23,7 @@ def ArgumentParser():
     parser.add_argument('--UnderSampling', type=float, default=-1, help='UnderSampling rate')
     parser.add_argument('--OverSampling', type=float, default=-1, help='OverSampling rate')
     parser.add_argument('--classification_level', default='session', type=str, help='session/action ')
-    parser.add_argument('--model', default='GSL', type=str, help='GSL/seq-attention/seqmodel')
+    parser.add_argument('--model', default='GSL', type=str, help='GCN/GAT')
     parser.add_argument('--encoder_type', default='lstm', type=str, help='lstm/gru/transformer')
     parser.add_argument("--mixloss", default=False, action='store_true')
     parser.add_argument("--use_sample_weight", default=False, action='store_true')
