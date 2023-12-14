@@ -28,11 +28,4 @@ LAN
 ```
 
 ## How to run
-### Real-Time
-cd RealTime
-
-You can run `run.sh` to train LAN.
-### Post-Hoc
-cd PostHoc
-
 You can run `run.sh` to train LAN.
