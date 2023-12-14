@@ -28,5 +28,6 @@ LAN
 ```
 
 ## How to run
-
-You can run `run.py` to train LAN.
+### Real-Time
+cd RealTime
+You can run `run.sh` to train LAN.
