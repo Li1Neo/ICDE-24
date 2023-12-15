@@ -19,7 +19,6 @@ def ArgumentParser():
     parser.add_argument('--classification_level', default='action', type=str, help='action ')
     parser.add_argument('--model', default='GSL', type=str, help='GCN/GAT')
     parser.add_argument('--encoder_type', default='lstm', type=str, help='lstm/gru/transformer')
-    parser.add_argument("--mixloss", default=False, action='store_true')
     parser.add_argument('--graph_metric_type', default='weighted_cosine', type=str, help='weighted_cosine/cosine')
     parser.add_argument("--add_graph_regularization", default=False, action='store_true')
     parser.add_argument('--hard_negative_weight', type=int, default=0, help='hard_negative_weight')
@@ -153,5 +152,3 @@ if __name__ == '__main__':
     start_epoch = checkpoint['epoch'] + 1
     maxauc = checkpoint['auc']
     inference(args, logger, model, 15, ds_pool, ds_val, sequential_dl_train, dl_val, device, index_path='', mode='next_action_prediction', rmodel=None, prefix=prefix)
-
-
