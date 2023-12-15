@@ -360,12 +360,10 @@ class dynamicGAT(torch.nn.Module):
 
 
 class GraphLearner(nn.Module):
-    def __init__(self, input_size, hidden_size, epsilon=None, num_pers=16, metric_type='cosine',
-                 chunk_size=-1):
+    def __init__(self, input_size, hidden_size, epsilon=None, num_pers=16, metric_type='cosine'):
         super(GraphLearner, self).__init__()
         self.epsilon = epsilon
         self.metric_type = metric_type
-        self.chunk_size = chunk_size
         if metric_type == 'weighted_cosine':
             self.weight_tensor = torch.Tensor(num_pers, input_size) 
             self.weight_tensor = nn.Parameter(nn.init.xavier_uniform_(self.weight_tensor))
@@ -423,10 +421,9 @@ class InsiderClassifier(nn.Module):
     def __init__(self, num_features, cat_features, seq_features, cat_nums, cat_embedding_size, seq_embedding_size,
                  lstm_hidden_size, dropout, reduction=True, use_attention=False, LayerNorm=True, encoder_type='lstm',
                  num_lstm_layers=2, mlp_hidden_layers=[],
-                 pooling_mode='origin', epsilon=0, num_pers=4, graph_metric_type='weighted_cosine', chunk_size=-1,
+                 pooling_mode='origin', epsilon=0, num_pers=4, graph_metric_type='weighted_cosine',
                  topk=15, num_class=2, add_graph_regularization=False, gnn='GCN', embedding_hook=False):
         super(InsiderClassifier, self).__init__()
-        self.chunk_size = chunk_size
         self.topk = topk
         self.num_class = num_class
         self.add_graph_regularization = add_graph_regularization
@@ -437,7 +434,7 @@ class InsiderClassifier(nn.Module):
         self.graph_learner = GraphLearner(lstm_hidden_size, lstm_hidden_size,
                                           epsilon=epsilon,
                                           num_pers=num_pers,
-                                          metric_type=graph_metric_type, chunk_size=chunk_size)
+                                          metric_type=graph_metric_type)
         if gnn == 'GCN':
             self.gcn = dynamicGCN(feat_size=lstm_hidden_size, hidden_size=lstm_hidden_size, dropout=dropout)
         elif gnn == 'GAT':
@@ -446,10 +443,7 @@ class InsiderClassifier(nn.Module):
 
     def forward(self, x):
         features = self.seq(x)[0]
-        if self.chunk_size != -1:
-            adj = self.graph_learner(features.reshape(-1, self.topk, features.shape[-1]))
-        else:
-            adj = self.graph_learner(features)
+        adj = self.graph_learner(features.reshape(-1, self.topk, features.shape[-1]))
         X_hat = self.gcn(features, adj)
         y_hat = self.cls(X_hat[::self.topk, :])  
         if self.embedding_hook == True:
@@ -463,8 +457,8 @@ def CreateInsiderClassifier(num_features, cat_features, seq_features, cat_nums, 
                             seq_embedding_size=128, lstm_hidden_size=128, dropout=0.3, reduction=True,
                             use_attention=False, LayerNorm=True, encoder_type='lstm', num_lstm_layers=2,
                             mlp_hidden_layers=[], pooling_mode='origin', epsilon=0, num_pers=4,
-                            graph_metric_type='weighted_cosine', chunk_size=-1, topk=15, num_class=2, add_graph_regularization=False, gnn='GCN', embedding_hook=False):
+                            graph_metric_type='weighted_cosine', topk=15, num_class=2, add_graph_regularization=False, gnn='GCN', embedding_hook=False):
     return InsiderClassifier(num_features, cat_features, seq_features, cat_nums, cat_embedding_size, seq_embedding_size,
                              lstm_hidden_size, dropout, reduction, use_attention, LayerNorm, encoder_type,
                              num_lstm_layers, mlp_hidden_layers, pooling_mode, epsilon, num_pers, graph_metric_type,
-                             chunk_size, topk, num_class=num_class, add_graph_regularization=add_graph_regularization, gnn=gnn, embedding_hook=embedding_hook)
+                             topk, num_class=num_class, add_graph_regularization=add_graph_regularization, gnn=gnn, embedding_hook=embedding_hook)
