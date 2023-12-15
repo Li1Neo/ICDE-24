@@ -65,4 +65,4 @@ python run.py \
 --add_graph_regularization \
 --reduction lastpositionattention \
 --use_sample_weight \
---hard_negative_weight YOUR_HARD_NEGATIVE_WEIGHT \
+--hard_negative_weight YOUR_HARD_NEGATIVE_WEIGHT 
