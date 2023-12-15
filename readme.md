@@ -66,3 +66,5 @@ python run.py \
 --reduction lastpositionattention \
 --use_sample_weight \
 --hard_negative_weight YOUR_HARD_NEGATIVE_WEIGHT 
+
+You can run inference.py for inference
