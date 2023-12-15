@@ -29,7 +29,7 @@ LAN
 ```
 
 ## How to run
-You can run `run.sh` to train LAN.
+(Recommend)You can run `run.sh` to train LAN.
 
 You can also input the following command to train LAN. There are different choices for some parameters shown in square brackets. The meaning of these parameters are shown in the following tables.
 | Parameters       | Value | Description                           |
