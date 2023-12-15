@@ -17,7 +17,6 @@ def ArgumentParser():
     parser.add_argument('--batch_size', type=int, default=128)
     parser.add_argument('--lr', type=float, default=1e-5)
     parser.add_argument('--epoch', type=int, default=100)
-    parser.add_argument('--chunk_size', type=int, default=32)
     parser.add_argument('--device', type=str, default='cuda:0', help='cuda:0/cuda:1/cpu')
     parser.add_argument('--dropout', type=float, default=0.3, help='dropout rate')
     parser.add_argument('--UnderSampling', type=float, default=-1, help='UnderSampling rate')
@@ -86,7 +85,7 @@ if __name__ == '__main__':
     logger.info(cat_nums)
     num_class = (cat_nums['hist_activity'] - 3) * 24 + 25
     model = CreateInsiderClassifier(num_features, cat_features, seq_features, cat_nums, reduction=args.reduction,
-                                    encoder_type=args.encoder_type, epsilon=0.5, graph_metric_type=args.graph_metric_type, chunk_size=args.chunk_size,
+                                    encoder_type=args.encoder_type, epsilon=0.5, graph_metric_type=args.graph_metric_type,
                                     topk=15, num_class=num_class, add_graph_regularization=args.add_graph_regularization, gnn=args.model)
     label_col = ['target_action', 'target_action_label']
     ds_pool = Df2Dataset(dfpool, num_features, cat_features, seq_features, encoders, label_col=label_col)
