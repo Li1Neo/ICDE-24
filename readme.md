@@ -69,3 +69,10 @@ python run.py \
 --hard_negative_weight YOUR_HARD_NEGATIVE_WEIGHT 
 
 You can run inference.py for inference
+
+
+**Performance of LAN with different numbers of candidate neighbors k obtained through retrieval：**
+CERT r4.2:
+![r42](https://github.com/Li1Neo/ICDE-24/blob/main/topk42.pdf)
+CERT r5.2:
+![r52](https://github.com/Li1Neo/ICDE-24/blob/main/topk52.pdf)
